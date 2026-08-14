@@ -1,242 +1,557 @@
+
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Central de Atendimento</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Expresso Baterias - baterias, peças e acessórios para veículos em Lagoa da Prata - MG. Atendimento, orçamento e informações da empresa.">
+  <meta name="theme-color" content="#07111f">
+  <title>Expresso Baterias | Lagoa da Prata - MG</title>
 
-<style>
-:root{
-  --primary:#dc2626;
-  --primary2:#b91c1c;
-  --text:#0f172a;
-  --muted:#6b7280;
-  --shadow:0 18px 50px rgba(2,6,23,.18);
-}
+  <style>
+    :root{
+      --bg:#07111f;
+      --bg2:#0b1728;
+      --card:#101f33;
+      --card2:#13263d;
+      --text:#f5f8fc;
+      --muted:#a9b7c9;
+      --line:rgba(255,255,255,.10);
+      --orange:#ff6b1a;
+      --orange2:#ff8b3d;
+      --blue:#1d8fff;
+      --green:#22c55e;
+      --shadow:0 22px 60px rgba(0,0,0,.25);
+      --radius:22px;
+    }
 
-*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+      background:linear-gradient(180deg,var(--bg),#091522 45%,#f4f7fb 45%,#f4f7fb 100%);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1160px,92%);margin:auto}
 
-body{
-  margin:0;
-  background:linear-gradient(180deg,#fef2f2,#ffffff);
-  color:var(--text);
-}
+    header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(7,17,31,.88);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px
+    }
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.4px}
+    .brand-mark{
+      width:44px;height:44px;border-radius:13px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--orange),#ff3d00);
+      box-shadow:0 10px 30px rgba(255,107,26,.25);
+      font-size:22px
+    }
+    .brand span{font-size:18px}
+    nav{display:flex;gap:25px;align-items:center}
+    nav a{font-size:14px;color:#d8e2ee;transition:.2s}
+    nav a:hover{color:#fff}
+    .nav-cta{
+      background:var(--orange);padding:11px 17px;border-radius:11px;
+      font-weight:800;color:white!important
+    }
 
-.container{max-width:1100px;margin:auto;padding:40px 20px}
+    .hero{
+      padding:88px 0 100px;
+      position:relative;overflow:hidden
+    }
+    .hero:before{
+      content:"";position:absolute;width:600px;height:600px;border-radius:50%;
+      background:radial-gradient(circle,rgba(255,107,26,.18),transparent 65%);
+      right:-220px;top:-220px
+    }
+    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+    .eyebrow{
+      display:inline-flex;gap:8px;align-items:center;padding:8px 12px;
+      border:1px solid rgba(255,255,255,.13);border-radius:999px;
+      color:#d9e5f1;background:rgba(255,255,255,.04);font-size:13px;font-weight:700;
+      margin-bottom:22px
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+    h1{
+      font-size:clamp(42px,6vw,72px);line-height:.98;letter-spacing:-3px;
+      max-width:760px;margin-bottom:24px
+    }
+    h1 em{font-style:normal;color:var(--orange)}
+    .hero p{font-size:18px;color:var(--muted);max-width:680px}
+    .hero-buttons{display:flex;flex-wrap:wrap;gap:13px;margin-top:32px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      padding:14px 20px;border-radius:13px;font-weight:850;font-size:14px;
+      transition:transform .2s,box-shadow .2s
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--orange);box-shadow:0 14px 32px rgba(255,107,26,.25)}
+    .btn-secondary{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05)}
+    .hero-card{
+      background:linear-gradient(145deg,#11243b,#091725);
+      border:1px solid var(--line);border-radius:28px;padding:30px;box-shadow:var(--shadow);
+      position:relative
+    }
+    .battery-visual{
+      height:270px;border-radius:22px;
+      background:
+        radial-gradient(circle at 75% 25%,rgba(255,107,26,.22),transparent 30%),
+        linear-gradient(135deg,#132b44,#08121f);
+      display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+      margin-bottom:24px
+    }
+    .battery{
+      width:210px;height:135px;border-radius:15px 15px 10px 10px;
+      background:linear-gradient(160deg,#182b42,#050b13);
+      border:2px solid #30445c;box-shadow:0 25px 45px rgba(0,0,0,.35);
+      position:relative
+    }
+    .battery:before,.battery:after{
+      content:"";position:absolute;top:-13px;width:26px;height:13px;background:#8291a4;border-radius:5px 5px 0 0
+    }
+    .battery:before{left:35px}.battery:after{right:35px}
+    .battery-label{
+      position:absolute;inset:25px 20px;border-radius:9px;
+      background:linear-gradient(135deg,var(--orange),#d83c00);
+      display:grid;place-items:center;font-size:20px;font-weight:950;letter-spacing:1px
+    }
+    .quick-info{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .quick-info div{padding:14px;background:rgba(255,255,255,.045);border-radius:14px;border:1px solid var(--line)}
+    .quick-info small{display:block;color:#8fa1b5;font-size:11px;text-transform:uppercase;letter-spacing:.8px}
+    .quick-info strong{font-size:14px}
 
-.header{display:flex;align-items:center;gap:14px;margin-bottom:40px}
+    .light-section{color:#152234;padding:90px 0}
+    .section-head{max-width:730px;margin-bottom:40px}
+    .kicker{color:var(--orange);font-weight:900;text-transform:uppercase;font-size:12px;letter-spacing:1.6px;margin-bottom:10px}
+    h2{font-size:clamp(30px,4vw,46px);line-height:1.05;letter-spacing:-1.8px;margin-bottom:15px}
+    .section-head p{color:#647387}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{
+      background:#fff;border:1px solid #e5eaf0;border-radius:var(--radius);padding:28px;
+      box-shadow:0 12px 35px rgba(14,31,49,.06)
+    }
+    .icon{
+      width:48px;height:48px;border-radius:14px;background:#fff1e9;color:var(--orange);
+      display:grid;place-items:center;font-size:23px;margin-bottom:20px
+    }
+    .card h3{font-size:19px;margin-bottom:9px}
+    .card p{font-size:14px;color:#68778a}
 
-.logo{
-  width:46px;height:46px;border-radius:14px;
-  background:#fff;border:1px solid rgba(0,0,0,.1);
-  box-shadow:0 10px 25px rgba(0,0,0,.12);
-  object-fit:contain;
-}
+    .dark-section{padding:90px 0;background:#091522}
+    .dark-section .section-head p{color:#91a3b7}
+    .dark-section h2{color:#fff}
+    .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+    .product{
+      background:linear-gradient(160deg,#13273f,#0c1827);
+      border:1px solid var(--line);padding:24px;border-radius:20px;min-height:190px
+    }
+    .product .num{font-size:12px;color:var(--orange);font-weight:900}
+    .product h3{margin-top:25px;font-size:20px}
+    .product p{color:#94a7bb;font-size:13px;margin-top:8px}
 
-.header h1{margin:0;font-size:22px}
-.header span{font-size:13px;color:var(--muted)}
+    .about{
+      display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center
+    }
+    .about-panel{
+      background:linear-gradient(145deg,#0c1d30,#112941);border-radius:26px;padding:34px;
+      color:#fff;box-shadow:var(--shadow)
+    }
+    .about-panel h3{font-size:25px;margin-bottom:14px}
+    .about-panel p{color:#9db0c4;font-size:15px}
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+    .stat{padding:17px;border:1px solid var(--line);border-radius:15px}
+    .stat strong{display:block;font-size:19px}.stat span{font-size:12px;color:#91a4b8}
 
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+    .company-data{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+    .data{
+      padding:18px;border:1px solid #e5eaf0;border-radius:16px;background:#fff
+    }
+    .data small{display:block;color:#7b8898;text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.8px}
+    .data strong{font-size:14px;color:#18283a}
 
-.hero h2{font-size:34px;margin:0}
-.hero p{margin-top:12px;line-height:1.5;color:rgba(0,0,0,.7)}
+    .contact{
+      background:linear-gradient(135deg,#ff6b1a,#e84600);color:#fff;
+      border-radius:28px;padding:50px;display:grid;grid-template-columns:1.2fr .8fr;gap:35px;align-items:center
+    }
+    .contact h2{margin-bottom:10px}
+    .contact p{color:rgba(255,255,255,.82)}
+    .contact-box{background:rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:22px}
+    .contact-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.15);font-size:14px}
+    .contact-item:last-child{border-bottom:0}
+    .contact-item b{display:block;font-size:11px;text-transform:uppercase;opacity:.7;letter-spacing:.8px}
 
-.btn{
-  display:inline-block;
-  margin-top:18px;
-  padding:14px 24px;
-  border-radius:999px;
-  background:linear-gradient(135deg,var(--primary2),var(--primary));
-  color:#fff;
-  font-weight:800;
-  text-decoration:none;
-  box-shadow:0 18px 40px rgba(220,38,38,.35);
-  cursor:pointer;
-  border:none;
-  font-size:16px;
-}
+    .faq{max-width:850px}
+    details{border-bottom:1px solid #dfe5eb;padding:18px 0}
+    summary{cursor:pointer;font-weight:800;list-style:none;display:flex;justify-content:space-between;gap:20px}
+    summary::-webkit-details-marker{display:none}
+    summary:after{content:"+";color:var(--orange);font-size:22px}
+    details[open] summary:after{content:"−"}
+    details p{color:#6a788a;padding:12px 35px 0 0;font-size:14px}
 
-.btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 20px 50px rgba(220,38,38,.45);
-}
+    footer{background:#050d16;color:#8ea0b3;padding:40px 0}
+    .footer-grid{display:flex;justify-content:space-between;gap:30px;align-items:center}
+    footer strong{color:#fff}
+    .legal{font-size:12px;max-width:650px}
+    .copyright{font-size:12px;text-align:right}
 
-.card{
-  background:#fff;
-  padding:18px;
-  border-radius:22px;
-  box-shadow:var(--shadow);
-}
+    .floating{
+      position:fixed;right:20px;bottom:20px;z-index:100;
+      width:58px;height:58px;border-radius:50%;background:#25d366;color:white;
+      display:grid;place-items:center;font-size:25px;box-shadow:0 12px 35px rgba(0,0,0,.28)
+    }
 
-.service{
-  display:block;
-  padding:14px;
-  margin-bottom:10px;
-  border-radius:16px;
-  background:rgba(220,38,38,.08);
-  border:1px solid rgba(220,38,38,.18);
-  font-weight:800;
-  text-decoration:none;
-  color:var(--text);
-  cursor:pointer;
-}
-
-.service:hover{
-  background:rgba(220,38,38,.12);
-}
-
-.service span{
-  float:right;
-  color:var(--primary2);
-}
-
-.split{
-  margin-top:80px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:28px;
-  align-items:center;
-}
-
-.split h3{font-size:28px;margin:0}
-.split h4{margin-top:10px;font-size:18px}
-.split p{margin-top:10px;line-height:1.6;color:var(--muted)}
-
-.image{
-  height:320px;
-  border-radius:22px;
-  background:url("https://i.imgur.com/Prh9fyG.png") center/cover no-repeat;
-  box-shadow:var(--shadow);
-}
-
-.values{
-  margin-top:90px;
-  background:#0b1220;
-  color:#fff;
-  padding:60px 20px;
-}
-
-.values h3{text-align:center;font-size:28px;margin:0}
-
-.grid{
-  max-width:1100px;
-  margin:40px auto 0;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.box{
-  background:rgba(255,255,255,.06);
-  border-radius:18px;
-  padding:20px;
-}
-
-.box strong{font-size:18px}
-.box p{margin-top:10px;color:rgba(255,255,255,.75);line-height:1.6}
-
-footer{
-  background:#fff;
-  border-top:1px solid rgba(0,0,0,.08);
-  padding:20px 0;
-  text-align:center;
-  color:#6b7280;
-}
-
-@media(max-width:900px){
-  .hero,.split,.grid{grid-template-columns:1fr}
-  .hero h2{font-size:28px}
-}
-</style>
+    @media(max-width:900px){
+      body{background:linear-gradient(180deg,var(--bg) 0 42%,#f4f7fb 42% 100%)}
+      .hero-grid,.about,.contact{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr 1fr}
+      .product-grid{grid-template-columns:1fr 1fr}
+      nav{display:none}
+    }
+    @media(max-width:600px){
+      .hero{padding:60px 0 70px}
+      h1{letter-spacing:-2px}
+      .cards,.product-grid,.company-data{grid-template-columns:1fr}
+      .contact{padding:30px 22px}
+      .footer-grid{flex-direction:column;align-items:flex-start}
+      .copyright{text-align:left}
+      .battery-visual{height:220px}
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <div class="container nav">
+      <a href="#inicio" class="brand">
+        <div class="brand-mark">⚡</div>
+        <span>EXPRESSO BATERIAS</span>
+      </a>
 
-<script>
-  const WHATSAPP_ATENDIMENTO = "5511915623703";
-  const WHATSAPP_2VIA       = "5511915623703";
-  const WHATSAPP_SUPORTE    = "5511915623703";
-  const WHATSAPP_OUTROS     = "5511915623703";
-</script>
+      <nav>
+        <a href="#empresa">A Empresa</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#dados">Dados</a>
+        <a href="#contato">Contato</a>
+      </nav>
 
-<div class="container">
-  <div class="header">
-    <img src="https://i.imgur.com/6DtBUlS.png" class="logo" alt="Logo">
-    <div>
-      <h1>Central de Atendimento</h1>
-      <span>Serviços e suporte via WhatsApp</span>
+      <a class="nav-cta" href="https://wa.me/5537998459921" target="_blank" rel="noopener">
+        WhatsApp
+      </a>
     </div>
-  </div>
+  </header>
 
-  <div class="hero">
-    <div>
-      <h2>Solicite Atendimento</h2>
-      <p>Selecione o serviço desejado e inicie o atendimento seguro pelo WhatsApp.</p>
+  <main id="inicio">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Atendimento em Lagoa da Prata • MG</div>
+          <h1>Energia para o seu veículo <em>seguir em frente.</em></h1>
+          <p>
+            A Expresso Baterias é uma empresa especializada no comércio de baterias,
+            peças e acessórios para veículos, com atendimento voltado às necessidades
+            de motoristas, motociclistas e proprietários de veículos.
+          </p>
 
-      <button class="btn" onclick="abrirWhatsApp(WHATSAPP_ATENDIMENTO, '')">
-        Iniciar Atendimento Seguro
-      </button>
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="https://wa.me/5537998459921?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." target="_blank" rel="noopener">
+              ⚡ Solicitar orçamento
+            </a>
+            <a class="btn btn-secondary" href="#servicos">Conhecer serviços</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="battery-visual">
+            <div class="battery">
+              <div class="battery-label">EXPRESSO</div>
+            </div>
+          </div>
+
+          <div class="quick-info">
+            <div><small>Empresa</small><strong>Expresso Baterias</strong></div>
+            <div><small>Localização</small><strong>Lagoa da Prata - MG</strong></div>
+            <div><small>Atividade</small><strong>Peças e acessórios</strong></div>
+            <div><small>Status cadastral</small><strong>Ativa</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="light-section" id="empresa">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Sobre a empresa</div>
+          <h2>Uma empresa focada em mobilidade e soluções automotivas.</h2>
+          <p>
+            A Expresso Baterias LP LTDA atua no comércio varejista de peças e acessórios
+            novos para veículos automotores. A empresa está sediada em Lagoa da Prata,
+            Minas Gerais, e possui atividades relacionadas à manutenção automotiva e ao
+            segmento de motocicletas.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="icon">🔋</div>
+            <h3>Baterias e acessórios</h3>
+            <p>
+              Comércio de peças e acessórios novos para veículos automotores,
+              incluindo baterias e outros itens destinados à manutenção e funcionamento do veículo.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🛠️</div>
+            <h3>Manutenção automotiva</h3>
+            <p>
+              A empresa possui atividade secundária registrada de manutenção e reparação
+              mecânica de veículos automotores.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🏍️</div>
+            <h3>Linha para motocicletas</h3>
+            <p>
+              Também possui atividades registradas para comércio de peças e acessórios
+              novos e manutenção de motocicletas e motonetas.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-section" id="servicos">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Soluções</div>
+          <h2>Serviços e segmentos atendidos</h2>
+          <p>
+            Estrutura de atendimento direcionada ao comércio automotivo e à manutenção
+            de veículos, conforme as atividades econômicas registradas da empresa.
+          </p>
+        </div>
+
+        <div class="product-grid">
+          <article class="product">
+            <span class="num">01 / AUTOMOTIVO</span>
+            <h3>Peças para veículos</h3>
+            <p>Comércio varejista de peças e acessórios novos para veículos automotores.</p>
+          </article>
+
+          <article class="product">
+            <span class="num">02 / MECÂNICA</span>
+            <h3>Manutenção mecânica</h3>
+            <p>Atividade registrada de manutenção e reparação mecânica de veículos.</p>
+          </article>
+
+          <article class="product">
+            <span class="num">03 / MOTOS</span>
+            <h3>Peças para motos</h3>
+            <p>Comércio de peças e acessórios novos para motocicletas e motonetas.</p>
+          </article>
+
+          <article class="product">
+            <span class="num">04 / MOTOS</span>
+            <h3>Reparação de motos</h3>
+            <p>Manutenção e reparação de motocicletas e motonetas, incluindo instalação de acessórios.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="light-section">
+      <div class="container about">
+        <div>
+          <div class="section-head">
+            <div class="kicker">Por que escolher</div>
+            <h2>Atendimento direto, informações claras e soluções para o dia a dia.</h2>
+            <p>
+              A proposta da Expresso Baterias é facilitar o acesso a produtos e serviços
+              relacionados ao setor automotivo, oferecendo um canal simples para contato,
+              orçamento e orientação sobre as necessidades do veículo.
+            </p>
+          </div>
+
+          <div class="cards" style="grid-template-columns:1fr 1fr">
+            <article class="card">
+              <div class="icon">✓</div>
+              <h3>Atendimento direto</h3>
+              <p>Canal de contato por WhatsApp para informações e solicitações.</p>
+            </article>
+            <article class="card">
+              <div class="icon">📍</div>
+              <h3>Presença local</h3>
+              <p>Empresa estabelecida em Lagoa da Prata, Minas Gerais.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="about-panel">
+          <h3>Informações cadastrais</h3>
+          <p>
+            Dados públicos cadastrais da matriz da empresa, apresentados de forma
+            objetiva para identificação e contato.
+          </p>
+
+          <div class="stats">
+            <div class="stat"><strong>2025</strong><span>Abertura da empresa</span></div>
+            <div class="stat"><strong>Ativa</strong><span>Situação cadastral</span></div>
+            <div class="stat"><strong>ME</strong><span>Porte empresarial</span></div>
+            <div class="stat"><strong>LTDA</strong><span>Natureza jurídica</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="light-section" id="produtos" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Atuação</div>
+          <h2>Segmentos de produtos</h2>
+          <p>
+            A atividade principal da empresa está relacionada ao comércio varejista de
+            peças e acessórios novos para veículos automotores.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="icon">🚗</div>
+            <h3>Automóveis</h3>
+            <p>Peças e acessórios novos destinados a veículos automotores.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🏍️</div>
+            <h3>Motocicletas</h3>
+            <p>Peças, partes e acessórios novos para motocicletas e motonetas.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🔧</div>
+            <h3>Manutenção</h3>
+            <p>Serviços relacionados à manutenção e reparação mecânica de veículos e motos.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="light-section" id="dados" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Identificação</div>
+          <h2>Dados da Expresso Baterias LP LTDA</h2>
+          <p>Informações cadastrais da matriz conforme bases públicas consultadas.</p>
+        </div>
+
+        <div class="company-data">
+          <div class="data"><small>Razão Social</small><strong>EXPRESSO BATERIAS LP LTDA</strong></div>
+          <div class="data"><small>Nome Fantasia</small><strong>EXPRESSO BATERIAS</strong></div>
+          <div class="data"><small>CNPJ</small><strong>62.308.706/0001-72</strong></div>
+          <div class="data"><small>Natureza Jurídica</small><strong>Sociedade Empresária Limitada</strong></div>
+          <div class="data"><small>Data de abertura</small><strong>20/08/2025</strong></div>
+          <div class="data"><small>Capital Social</small><strong>R$ 25.000,00</strong></div>
+          <div class="data"><small>Endereço</small><strong>Avenida Brasil, 1506, Loja</strong></div>
+          <div class="data"><small>Bairro</small><strong>Santa Eugenia — Lagoa da Prata/MG</strong></div>
+          <div class="data"><small>CEP</small><strong>35.591-018</strong></div>
+          <div class="data"><small>Regime</small><strong>Simples Nacional</strong></div>
+          <div class="data"><small>CNAE principal</small><strong>45.30-7-03 — Comércio varejista de peças e acessórios novos para veículos automotores</strong></div>
+          <div class="data"><small>Situação cadastral</small><strong>ATIVA</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="light-section" id="contato">
+      <div class="container">
+        <div class="contact">
+          <div>
+            <div class="kicker" style="color:#ffe1d0">Contato</div>
+            <h2>Fale com a Expresso Baterias.</h2>
+            <p>
+              Entre em contato para solicitar informações, consultar produtos ou
+              conversar sobre sua necessidade automotiva.
+            </p>
+
+            <div class="hero-buttons">
+              <a class="btn" style="background:#fff;color:#dd4c0c" href="https://wa.me/5537998459921?text=Olá!%20Gostaria%20de%20falar%20com%20a%20Expresso%20Baterias." target="_blank" rel="noopener">
+                💬 Chamar no WhatsApp
+              </a>
+              <a class="btn" style="border:1px solid rgba(255,255,255,.35)" href="mailto:expressobateriaslp@gmail.com">
+                ✉ Enviar e-mail
+              </a>
+            </div>
+          </div>
+
+          <div class="contact-box">
+            <div class="contact-item">
+              <b>Telefone / WhatsApp</b>
+              (37) 99845-9921
+            </div>
+            <div class="contact-item">
+              <b>E-mail</b>
+              expressobateriaslp@gmail.com
+            </div>
+            <div class="contact-item">
+              <b>Endereço</b>
+              Avenida Brasil, 1506, Loja — Santa Eugenia<br>
+              Lagoa da Prata — MG • 35.591-018
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="light-section" style="padding-top:20px">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Perguntas frequentes</div>
+          <h2>Informações rápidas</h2>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>Qual é o nome fantasia da empresa?</summary>
+            <p>O nome fantasia registrado é Expresso Baterias.</p>
+          </details>
+          <details>
+            <summary>Qual é o CNPJ da Expresso Baterias LP LTDA?</summary>
+            <p>O CNPJ informado nas bases públicas consultadas é 62.308.706/0001-72.</p>
+          </details>
+          <details>
+            <summary>Onde fica a empresa?</summary>
+            <p>A matriz está localizada na Avenida Brasil, 1506, Loja, bairro Santa Eugenia, Lagoa da Prata/MG, CEP 35.591-018.</p>
+          </details>
+          <details>
+            <summary>Quais são as principais atividades?</summary>
+            <p>A atividade principal é o comércio varejista de peças e acessórios novos para veículos automotores. Também constam atividades de manutenção mecânica, comércio e manutenção de motocicletas e motonetas.</p>
+          </details>
+          <details>
+            <summary>Como entrar em contato?</summary>
+            <p>Você pode entrar em contato pelo WhatsApp (37) 99845-9921 ou pelo e-mail expressobateriaslp@gmail.com.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="legal">
+        <strong>EXPRESSO BATERIAS</strong><br>
+        Expresso Baterias LP LTDA • CNPJ 62.308.706/0001-72<br>
+        Este site apresenta informações institucionais e cadastrais da empresa.
+      </div>
+      <div class="copyright">© 2026 Expresso Baterias. Todos os direitos reservados.</div>
     </div>
+  </footer>
 
-    <div class="card">
-      <button class="service" onclick="abrirWhatsApp(WHATSAPP_2VIA, '2ª Via de Boleto')" style="width:100%;text-align:left;background:none;border:none;padding:14px;">
-        2ª Via de Boleto <span>Acessar</span>
-      </button>
-
-      <button class="service" onclick="abrirWhatsApp(WHATSAPP_SUPORTE, 'Suporte Técnico')" style="width:100%;text-align:left;background:none;border:none;padding:14px;">
-        Suporte Técnico <span>Acessar</span>
-      </button>
-
-      <button class="service" onclick="abrirWhatsApp(WHATSAPP_OUTROS, 'Outros Assuntos')" style="width:100%;text-align:left;background:none;border:none;padding:14px;">
-        Outros Assuntos <span>Acessar</span>
-      </button>
-    </div>
-  </div>
-
-  <div class="split">
-    <div>
-      <h3>Soluções na palma<br>da sua mão</h3>
-      <h4>Facilite seu atendimento</h4>
-
-      <p>Tenha um fluxo simples, rápido e seguro para solicitar suporte e serviços.</p>
-
-      <p>
-        Nós acreditamos que um bom atendimento consiste em oferecer processos simples e seguros,
-        que tornem o dia a dia do cliente mais fácil.
-      </p>
-    </div>
-
-    <div class="image"></div>
-  </div>
-</div>
-
-<div class="values">
-  <h3>Compromissos</h3>
-  <div class="grid">
-    <div class="box"><strong>01 ✓ Transparência</strong><p>Nosso compromisso com a transparência cria confiança.</p></div>
-    <div class="box"><strong>02 ✓ Seriedade</strong><p>Relações sólidas baseadas em integridade.</p></div>
-    <div class="box"><strong>03 ✓ Ética</strong><p>Atuação ética e responsável.</p></div>
-  </div>
-</div>
-
-<footer>
-©️ <span id="y"></span> Central de Atendimento • Todos os direitos reservados
-</footer>
-
-<script>
-  // Função para abrir WhatsApp
-  function abrirWhatsApp(numero, servico) {
-    let msg = "Olá! Preciso de atendimento";
-    
-    if (servico && servico.trim() !== "") {
-      msg += " sobre: " + servico;
-    }
-    
-    const url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(msg);
-    window.open(url, '_blank');
-  }
-
-  document.getElementById("y").textContent = new Date().getFullYear();
-</script>
-
+  <a class="floating" href="https://wa.me/5537998459921" target="_blank" rel="noopener" aria-label="WhatsApp">☏</a>
 </body>
 </html>
